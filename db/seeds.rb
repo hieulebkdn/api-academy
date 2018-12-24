@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 # User.create! email: "sinh@academy.org", phone: Faker::PhoneNumber.cell_phone,
 # name: "Sinh dep trai" , role: "admin", password: "foobar", password_confirmation: "foobar"
 

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.select(:id, :email, :name, :phone, :role, :created_at, :updated_at)
     render json: @users
   end
 
@@ -42,6 +42,16 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+  def login
+    authenticate params[:email], params[:password]
+  end
+
+  def test
+    render json: {
+          message: 'You have passed authentication and authorization test'
+        }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -50,6 +60,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :name, :phone)
+      params.require(:user).permit(:email, :name, :phone, :role, :password)
     end
 end
