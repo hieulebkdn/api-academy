@@ -1,0 +1,19 @@
+current directory: /home/socold/api-academy/vendor/bundle/ruby/2.5.0/gems/bcrypt-3.1.12/ext/mri
+/usr/local/rvm/rubies/ruby-2.5.0/bin/ruby -r ./siteconf20181224-17721-1j6s0t4.rb extconf.rb
+creating Makefile
+
+current directory: /home/socold/api-academy/vendor/bundle/ruby/2.5.0/gems/bcrypt-3.1.12/ext/mri
+make "DESTDIR=" clean
+
+current directory: /home/socold/api-academy/vendor/bundle/ruby/2.5.0/gems/bcrypt-3.1.12/ext/mri
+make "DESTDIR="
+compiling bcrypt_ext.c
+compiling crypt.c
+compiling crypt_blowfish.c
+compiling crypt_gensalt.c
+compiling wrapper.c
+linking shared-object bcrypt_ext.so
+
+current directory: /home/socold/api-academy/vendor/bundle/ruby/2.5.0/gems/bcrypt-3.1.12/ext/mri
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bcrypt_ext.so ./.gem.20181224-17721-11j1b7o
