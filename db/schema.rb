@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2018_12_24_034907) do
     t.decimal "fee", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "duration", null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

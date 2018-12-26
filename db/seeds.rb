@@ -35,3 +35,11 @@
 #   Account.create! address: Faker::Address.street_address, dob: Faker::Date.between(9000.days.ago, 6000.days.ago),
 #   gender: Faker::Number.between(0,1), parent_name: Faker::Dota.hero, parent_phone: Faker::PhoneNumber.cell_phone, user_id: (n+22)*10+1
 # end
+
+# 3.times do |n|
+#   Course.create! name: Faker::Educator.course, level: "Advance", start_date: Faker::Date.between(300.days.ago, Date.today), fee: Faker::Number.between(100,1000)
+# end
+
+4.times do |n|
+  Course.create! name: Faker::Educator.course, level: "Basic", start_date: Faker::Date.between(300.days.ago, Date.today), fee: Faker::Number.between(100,1000)
+end

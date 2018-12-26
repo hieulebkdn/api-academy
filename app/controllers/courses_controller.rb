@@ -1,15 +1,21 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :update, :destroy]
+  skip_before_action :authenticate_request
 
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    @courses = Course.all.select(:id, :name, :level, :start_date, :duration, :fee)
+    render json:  {
+      header: ["ID", "Tên khóa học", "Trình độ", "Ngày bắt đầu", "Thời gian","Học phí"], 
+      data: @courses
+    }
   end
 
   # GET /courses/1
   # GET /courses/1.json
   def show
+    render json: @course
   end
 
   # POST /courses
