@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_26_070141) do
+ActiveRecord::Schema.define(version: 2018_12_26_171706) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "dob"
@@ -32,12 +32,35 @@ ActiveRecord::Schema.define(version: 2018_12_26_070141) do
     t.index ["course_id"], name: "index_class_rooms_on_course_id"
   end
 
+  create_table "class_rooms_timetables", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "class_room_id", null: false
+    t.bigint "timetable_id", null: false
+    t.index ["class_room_id", "timetable_id"], name: "index_class_rooms_timetables_on_class_room_id_and_timetable_id"
+    t.index ["timetable_id", "class_room_id"], name: "index_class_rooms_timetables_on_timetable_id_and_class_room_id"
+  end
+
+  create_table "class_rooms_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "class_room_id", null: false
+    t.boolean "is_teacher", default: false
+    t.index ["class_room_id", "user_id"], name: "index_class_rooms_users_on_class_room_id_and_user_id"
+    t.index ["user_id", "class_room_id"], name: "index_class_rooms_users_on_user_id_and_class_room_id"
+  end
+
   create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.decimal "fee", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "duration", null: false
+  end
+
+  create_table "timetables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "weekday"
+    t.string "start_time"
+    t.string "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -48,6 +71,8 @@ ActiveRecord::Schema.define(version: 2018_12_26_070141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.bigint "timetable_id"
+    t.index ["timetable_id"], name: "index_users_on_timetable_id"
   end
 
   add_foreign_key "accounts", "users"

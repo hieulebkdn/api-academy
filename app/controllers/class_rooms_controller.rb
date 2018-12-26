@@ -12,6 +12,17 @@ class ClassRoomsController < ApplicationController
   # GET /class_rooms/1
   # GET /class_rooms/1.json
   def show
+    listStudentIDs = ClassRoomUser.get_list_student_ids(@class_room.id).pluck :user_id
+    listTeacherIDs = ClassRoomUser.get_list_teacher_ids(@class_room.id).pluck :user_id
+    listTimetableIDs = ClassRoomTimetable.get_list_timetable(@class_room.id).pluck :timetable_id
+    render json: {
+      id: @class_room.id,
+      name: @class_room.name,
+      course_id: @class_room.course_id,
+      listStudentIDs: listStudentIDs,
+      listTeacherIDs: listTeacherIDs,
+      listTimetableIDs: listTimetableIDs
+    }
   end
 
   # POST /class_rooms

@@ -36,15 +36,44 @@
 #   gender: Faker::Number.between(0,1), parent_name: Faker::Dota.hero, parent_phone: Faker::PhoneNumber.cell_phone, user_id: (n+22)*10+1
 # end
 
-5.times do |n|
-  Course.create! name: Faker::Educator.course, fee: Faker::Number.between(300,1000), duration: Faker::Number.between(1,15) 
-end
+# 5.times do |n|
+#   Course.create! name: Faker::Educator.course, fee: Faker::Number.between(300,1000), duration: Faker::Number.between(1,15) 
+# end
 
-5.times do |n|
-  Course.create! name: Faker::Educator.course, fee: Faker::Number.between(300,1000), duration: Faker::Number.between(1,15) 
-end
+# 5.times do |n|
+#   Course.create! name: Faker::Educator.course, fee: Faker::Number.between(300,1000), duration: Faker::Number.between(1,15) 
+# end
 # listCourseIDS = Course.all.pluck :id
 
 # 10.times.do |n|
 #   ClassRoom.create! name: Faker::Educator.course, course_id: listCourseIDS.sample
 # end
+
+# listStudentIDS = User.where(role: "student").pluck :id
+# listTeacherIDS = User.where(role: "teacher").pluck :id
+# listClassIDS = ClassRoom.all.pluck :id
+# 40.times do |n| 
+#   ClassRoomUser.create! user_id: listStudentIDS.sample, class_room_id: listClassIDS.sample
+# end
+
+# 10.times do |n|
+#   ClassRoomUser.create! user_id: listTeacherIDS.sample, class_room_id: listClassIDS.sample, is_teacher: true
+# end
+
+# weekday = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+# start_time = ["8:00", "15:00", "17:00", "19:00"]
+# end_time = ["10:00", "17:00", "19:00", "21:00"]
+# weekday.each do |day|
+#   4.times do |n|
+#     Timetable.create! weekday: day, start_time: start_time[n], end_time: end_time[n]
+#   end
+# end
+
+listTimetableIDs = Timetable.all.pluck :id
+listClassRoomIDs = ClassRoom.all.pluck :id
+
+listClassRoomIDs.each do |id|
+  2.times do |n|
+  ClassRoomTimetable.create! class_room_id: id, timetable_id: listTimetableIDs.sample
+end
+end

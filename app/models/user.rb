@@ -2,6 +2,7 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_one :account, dependent: :destroy
+  has_many :class_room_user, dependent: :destroy
 
   validates :email, presence: true, uniqueness: {case_sensitive: false}
   validates :password, length: {minimum: 6}, presence: true, allow_nil: true
