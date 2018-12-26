@@ -5,17 +5,18 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all.select(:id, :name, :level, :start_date, :duration, :fee)
-    render json:  {
-      header: ["ID", "Tên khóa học", "Trình độ", "Ngày bắt đầu", "Thời gian","Học phí"], 
+    @courses = Course.all.select(:id, :name, :duration, :fee)
+    render json:  {tableData: {
+      header: ["ID", "Tên khóa học", "Thời gian","Học phí"], 
       data: @courses
-    }
+    }}
   end
 
   # GET /courses/1
   # GET /courses/1.json
   def show
-    render json: @course
+    @course_classroom = @course.class_rooms.select(:id, :name)
+    render json: {courseData: @course, courseClass: @course_classroom}
   end
 
   # POST /courses
