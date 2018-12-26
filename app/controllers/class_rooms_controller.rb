@@ -1,10 +1,12 @@
 class ClassRoomsController < ApplicationController
   before_action :set_class_room, only: [:show, :update, :destroy]
+  skip_before_action :authenticate_request
 
   # GET /class_rooms
   # GET /class_rooms.json
   def index
-    @class_rooms = ClassRoom.all
+    @class_rooms = ClassRoom.all.select(:id, :name)
+    render json: @class_rooms
   end
 
   # GET /class_rooms/1
