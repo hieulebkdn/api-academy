@@ -50,12 +50,15 @@ class ClassRoomsController < ApplicationController
   # DELETE /class_rooms/1
   # DELETE /class_rooms/1.json
   def destroy
+    ClassRoomTimetable.where(timetable_id: @class_room.id).delete_all
+    ClassRoomUser.where(class_room_id: @class_room.id).delete_all
     @class_room.destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_class_room
+
       @class_room = ClassRoom.find(params[:id])
     end
 
