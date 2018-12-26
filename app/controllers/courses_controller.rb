@@ -15,8 +15,9 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    @course_js = Course.where(id: params[:id]).select(:id, :name, :fee, :duration)
     @course_classroom = @course.class_rooms.select(:id, :name)
-    render json: {courseData: @course, courseClass: @course_classroom}
+    render json: {courseData: @course_js, courseClass: @course_classroom}
   end
 
   # POST /courses
