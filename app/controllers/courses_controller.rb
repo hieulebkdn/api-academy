@@ -26,7 +26,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
 
     if @course.save
-      render :show, status: :created, location: @course
+      render :show, status: :created
     else
       render json: @course.errors, status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1.json
   def update
     if @course.update(course_params)
-      render :show, status: :ok, location: @course
+      render :show, status: :ok
     else
       render json: @course.errors, status: :unprocessable_entity
     end

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  skip_before_action :authenticate_request, only: [:fetch_all_teachers, :fetch_all_students]
   # GET /users
   # GET /users.json
   def index
@@ -41,14 +42,24 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
-  def login
-    authenticate params[:email], params[:password]
+  # def login
+  #   authenticate params[:email], params[:password]
+  # end
+
+  # def test
+  #   render json: {
+  #         message: 'You have passed authentication and authorization test'
+  #       }
+  # end
+
+  def fetch_all_teachers
+    @teachers = User.fetch_by_role("teacher").select :id, :email, :name, :phone, :role
+    render json: @teachers
   end
 
-  def test
-    render json: {
-          message: 'You have passed authentication and authorization test'
-        }
+  def fetch_all_students
+    @students = User.fetch_by_role("student").select :id, :email, :name, :phone, :role
+    render json: @students
   end
 
   private

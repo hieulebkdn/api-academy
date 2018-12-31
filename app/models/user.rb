@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :password, length: {minimum: 6}, presence: true, allow_nil: true
 
   scope :get_in_list, ->(list_id){where "id IN (?)",list_id }
+  scope :fetch_by_role, -> (role_name){where "role = ?",role_name}
 
   has_secure_password
 

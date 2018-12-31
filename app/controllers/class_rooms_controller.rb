@@ -31,7 +31,7 @@ class ClassRoomsController < ApplicationController
     @class_room = ClassRoom.new(class_room_params)
 
     if @class_room.save
-      render :show, status: :created, location: @class_room
+      render :show, status: :created
     else
       render json: @class_room.errors, status: :unprocessable_entity
     end
@@ -41,7 +41,7 @@ class ClassRoomsController < ApplicationController
   # PATCH/PUT /class_rooms/1.json
   def update
     if @class_room.update(class_room_params)
-      render :show, status: :ok, location: @class_room
+      render :show, status: :ok
     else
       render json: @class_room.errors, status: :unprocessable_entity
     end
@@ -58,12 +58,11 @@ class ClassRoomsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_class_room
-
       @class_room = ClassRoom.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def class_room_params
-      params.require(:class_room).permit(:name)
+      params.require(:class_room).permit(:name, :course_id)
     end
 end
