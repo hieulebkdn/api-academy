@@ -31,7 +31,10 @@ class ClassRoomsController < ApplicationController
     @class_room = ClassRoom.new(class_room_params)
 
     if @class_room.save
-      render :show, status: :created
+      add_student_to_class if params[:list_students]
+      add_teacher_to_class if params[:list_teachers]
+      add_timetable_to_class if params[:list_timetables]
+      render json: @class_room, status: :ok
     else
       render json: @class_room.errors, status: :unprocessable_entity
     end
@@ -64,5 +67,26 @@ class ClassRoomsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def class_room_params
       params.require(:class_room).permit(:name, :course_id)
+    end
+
+    def add_student_to_class
+      @listStudentIDs = params[:list_students]
+      @listStudentIDs.each do |student_id| 
+        ClassRoomUser.create! user_id: student_id, class_room_id: @class_room.id
+      end
+    end
+
+    def add_teacher_to_class
+      @listTeacherIDs = params[:list_teachers]
+      @listTeacherIDs.each do |teacher_id| 
+        ClassRoomUser.create! user_id: teacher_id, class_room_id: @class_room.id, is_teacher: true
+      end
+    end
+
+    def add_timetable_to_class
+      @listTimetableIDs = params[:list_timetables]
+      @listTimetableIDs.each do |timetable_id|
+        ClassRoomTimetable.create! class_room_id: @class_room.id, timetable_id: timetable_id
+      end
     end
 end
