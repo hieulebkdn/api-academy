@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  target_name: MyString
+  type: 
+  naiyou: MyText
+  amount: 9.99
+
+two:
+  target_name: MyString
+  type: 
+  naiyou: MyText
+  amount: 9.99

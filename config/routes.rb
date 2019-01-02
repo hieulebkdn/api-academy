@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   delete 'class-rooms/:id', to: 'class_rooms#destroy'
 
   get 'timetables', to: 'timetables#index'
+  get 'invoices', to: 'invoices#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

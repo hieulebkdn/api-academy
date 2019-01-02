@@ -49,31 +49,42 @@
 #   ClassRoom.create! name: Faker::Educator.course, course_id: listCourseIDS.sample
 # end
 
-listStudentIDS = User.where(role: "student").pluck :id
-listTeacherIDS = User.where(role: "teacher").pluck :id
-listClassIDS = ClassRoom.all.pluck :id
-40.times do |n| 
-  ClassRoomUser.create! user_id: listStudentIDS.sample, class_room_id: listClassIDS.sample
-end
+# listStudentIDS = User.where(role: "student").pluck :id
+# listTeacherIDS = User.where(role: "teacher").pluck :id
+# listClassIDS = ClassRoom.all.pluck :id
+# 40.times do |n| 
+#   ClassRoomUser.create! user_id: listStudentIDS.sample, class_room_id: listClassIDS.sample
+# end
+
+# 10.times do |n|
+#   ClassRoomUser.create! user_id: listTeacherIDS.sample, class_room_id: listClassIDS.sample, is_teacher: true
+# end
+
+# weekday = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+# start_time = ["8:00", "15:00", "17:00", "19:00"]
+# end_time = ["10:00", "17:00", "19:00", "21:00"]
+# weekday.each do |day|
+#   4.times do |n|
+#     Timetable.create! weekday: day, start_time: start_time[n], end_time: end_time[n]
+#   end
+# end
+
+# listTimetableIDs = Timetable.all.pluck :id
+# listClassRoomIDs = ClassRoom.all.pluck :id
+
+# listClassRoomIDs.each do |id|
+#   3.times do |n|
+#   ClassRoomTimetable.create! class_room_id: id, timetable_id: listTimetableIDs.sample
+# end
+# end
 
 10.times do |n|
-  ClassRoomUser.create! user_id: listTeacherIDS.sample, class_room_id: listClassIDS.sample, is_teacher: true
+  Invoice.create! name: "Hóa đơn thu lần #{n}", target_name: Faker::Dota.hero, 
+    admin_name: Faker::LeagueOfLegends.champion, taibu: "incoming", naiyou: Faker::Lorem.sentence, amount: Faker::Number.between(200,900)
 end
 
-weekday = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-start_time = ["8:00", "15:00", "17:00", "19:00"]
-end_time = ["10:00", "17:00", "19:00", "21:00"]
-weekday.each do |day|
-  4.times do |n|
-    Timetable.create! weekday: day, start_time: start_time[n], end_time: end_time[n]
-  end
-end
 
-listTimetableIDs = Timetable.all.pluck :id
-listClassRoomIDs = ClassRoom.all.pluck :id
-
-listClassRoomIDs.each do |id|
-  3.times do |n|
-  ClassRoomTimetable.create! class_room_id: id, timetable_id: listTimetableIDs.sample
-end
+10.times do |n|
+  Invoice.create! name: "Hóa đơn chi lần #{n}", target_name: Faker::Dota.hero, 
+  admin_name: Faker::LeagueOfLegends.champion, taibu: "outgoing", naiyou: Faker::Lorem.sentence, amount: Faker::Number.between(200,900)
 end

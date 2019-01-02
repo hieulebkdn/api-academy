@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_26_171706) do
+ActiveRecord::Schema.define(version: 2019_01_02_092203) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "dob"
@@ -53,6 +53,17 @@ ActiveRecord::Schema.define(version: 2018_12_26_171706) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "duration", null: false
+  end
+
+  create_table "invoices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "target_name"
+    t.text "naiyou"
+    t.decimal "amount", precision: 10, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "admin_name"
+    t.string "name"
+    t.string "taibu", limit: 45, default: "incoming"
   end
 
   create_table "timetables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
