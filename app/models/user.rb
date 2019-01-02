@@ -4,8 +4,10 @@ class User < ApplicationRecord
   has_one :account, dependent: :destroy
   has_many :class_room_user, dependent: :destroy
 
+  accepts_nested_attributes_for :account
+
   validates :email, presence: true, uniqueness: {case_sensitive: false}
-  validates :password, length: {minimum: 6}, presence: true, allow_nil: true
+  validates :password, length: {minimum: 6}, allow_nil: true
 
   scope :get_in_list, ->(list_id){where "id IN (?)",list_id }
   scope :fetch_by_role, -> (role_name){where "role = ?",role_name}

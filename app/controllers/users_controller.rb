@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:update, :destroy]
   skip_before_action :authenticate_request, only: [:fetch_all_teachers, :fetch_all_students]
   # GET /users
   # GET /users.json
@@ -11,15 +11,17 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    render json: @user
+    @user = User.where(id: params[:id]).select(:id, :email, :name, :phone, :role)
+    render json: @user, :include => {:account => {only: [:address, :dob, :parent_name, :parent_phone]}}
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    # byebug  
     if @user.save
+      Account.create! user_id: @user.id, dob: params[:dob], address: params[:address]
       render :show, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -73,6 +75,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :name, :phone, :role, :password)
+      params.permit(:email, :name, :phone, :role, :password, :password_confirmation)
     end
+
 end
