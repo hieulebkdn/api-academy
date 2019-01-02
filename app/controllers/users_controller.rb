@@ -39,7 +39,10 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
+    ActiveRecord::Base.transaction do
+      ClassRoomUser.where(user_id: @user.id).delete_all
+      @user.destroy
+    end
   end
 
   # def login
