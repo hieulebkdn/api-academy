@@ -16,5 +16,8 @@ Rails.application.routes.draw do
 
   get 'timetables', to: 'timetables#index'
   get 'invoices', to: 'invoices#index'
+  get 'invoices/:id', to: 'invoices#show'
+  post 'invoices', to: 'invoices#create'
+  delete 'invoices/:id', to: 'invoices#destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

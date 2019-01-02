@@ -1,4 +1,5 @@
 class InvoicesController < ApplicationController
+  before_action :set_invoice, only: [:show, :update, :destroy]
   skip_before_action :authenticate_request
 
   # GET /invoices
@@ -11,6 +12,19 @@ class InvoicesController < ApplicationController
     }}
   end
 
+  def show
+    render json: @invoice
+  end
+
+  def create
+    @invoice = Invoice.new(invoice_params)
+    if @invoice.save
+      render json: @invoice, status: :ok
+    else
+      render json: @invoice.errors, status: :unprocessable_entity
+    end
+  end
+
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy
@@ -19,7 +33,11 @@ class InvoicesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_course
+    def set_invoice
       @invoice = Invoice.find(params[:id])
+    end
+
+    def invoice_params
+      params.require(:invoice).permit(:name, :target_name, :admin_name, :amount, :taibu, :naiyou)
     end
 end
