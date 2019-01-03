@@ -22,5 +22,11 @@ Rails.application.routes.draw do
   delete 'invoices/:id', to: 'invoices#destroy'
 
   put 'course-classes/:id', to: 'courses#edit_class_rooms'
+
+  get 'messages', to: 'messages#index'
+  get 'messages/:id', to: 'messages#show'
+  put 'messages/:id', to: 'messages#update'
+  post 'messages', to: 'messages#create'
+  delete 'messages/:id', to: 'messages#destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
