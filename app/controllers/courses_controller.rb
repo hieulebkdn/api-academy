@@ -35,6 +35,13 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1
   # PATCH/PUT /courses/1.json
   def update
+    if params[:list_class_ids]
+      list_new_class_ids = params[:list_class_ids]
+      ActiveRecord::Base.transaction do
+        ClassRoom.where(course_id: @course.id).update_all(course_id: nil)  
+        ClassRoom.get_in_list(list_new_class_ids).update_all(course_id: @course.id)
+      end
+    end
     if @course.update(course_params)
       render :show, status: :ok
     else
@@ -46,6 +53,17 @@ class CoursesController < ApplicationController
   # DELETE /courses/1.json
   def destroy
     @course.destroy
+  end
+
+  def edit_class_rooms
+    @course = Course.find params[:id]
+    list_new_class_ids = params[:list_class_ids]
+    ActiveRecord::Base.transaction do
+      ClassRoom.where(course_id: @course.id).update_all(course_id: nil)  
+      ClassRoom.get_in_list(list_new_class_ids).update_all(course_id: @course.id)
+      @new_courses_class = ClassRoom.where(course_id: @course.id)
+      render json: @new_courses_class, status: :ok
+    end
   end
 
   private

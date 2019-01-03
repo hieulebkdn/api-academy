@@ -13,11 +13,14 @@ Rails.application.routes.draw do
   get 'class-rooms/:id', to: 'class_rooms#show'
   post 'class-rooms', to: 'class_rooms#create'
   delete 'class-rooms/:id', to: 'class_rooms#destroy'
+  put 'class-rooms/:id', to: 'class_rooms#update'
 
   get 'timetables', to: 'timetables#index'
   get 'invoices', to: 'invoices#index'
   get 'invoices/:id', to: 'invoices#show'
   post 'invoices', to: 'invoices#create'
   delete 'invoices/:id', to: 'invoices#destroy'
+
+  put 'course-classes/:id', to: 'courses#edit_class_rooms'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -47,8 +47,21 @@ class ClassRoomsController < ApplicationController
   # PATCH/PUT /class_rooms/1
   # PATCH/PUT /class_rooms/1.json
   def update
+    if params[:list_students]
+      ClassRoomUser.where("class_room_id = ? AND is_teacher = false", @class_room.id).delete_all
+      add_student_to_class
+    end
+    if params[:list_teachers]
+      ClassRoomUser.where("class_room_id = ? AND is_teacher = true", @class_room.id).delete_all
+      add_teacher_to_class
+    end
+
+    if params[:list_timetables]
+      ClassRoomTimetable.where("class_room_id = ?", @class_room.id).delete_all
+      add_timetable_to_class
+    end
     if @class_room.update(class_room_params)
-      render :show, status: :ok
+      render json: @class_room, status: :ok
     else
       render json: @class_room.errors, status: :unprocessable_entity
     end
