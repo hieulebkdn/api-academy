@@ -78,13 +78,17 @@
 # end
 # end
 
-10.times do |n|
-  Invoice.create! name: "Hóa đơn thu lần #{n}", target_name: Faker::Dota.hero, 
-    admin_name: Faker::LeagueOfLegends.champion, taibu: "incoming", naiyou: Faker::Lorem.sentence, amount: Faker::Number.between(200,900)
-end
+# 10.times do |n|
+#   Invoice.create! name: "Hóa đơn thu lần #{n}", target_name: Faker::Dota.hero, 
+#     admin_name: Faker::LeagueOfLegends.champion, taibu: "incoming", naiyou: Faker::Lorem.sentence, amount: Faker::Number.between(200,900)
+# end
 
 
+# 10.times do |n|
+#   Invoice.create! name: "Hóa đơn chi lần #{n}", target_name: Faker::Dota.hero, 
+#   admin_name: Faker::LeagueOfLegends.champion, taibu: "outgoing", naiyou: Faker::Lorem.sentence, amount: Faker::Number.between(200,900)
+# end
+
 10.times do |n|
-  Invoice.create! name: "Hóa đơn chi lần #{n}", target_name: Faker::Dota.hero, 
-  admin_name: Faker::LeagueOfLegends.champion, taibu: "outgoing", naiyou: Faker::Lorem.sentence, amount: Faker::Number.between(200,900)
+  Message.create! name: Faker::LeagueOfLegends.champion, email: "user-#{n+1}@academy.org", phone: Faker::PhoneNumber.cell_phone, note: Faker::Lorem.sentence
 end
