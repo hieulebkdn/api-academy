@@ -5,7 +5,7 @@ class ClassRoomsController < ApplicationController
   # GET /class_rooms
   # GET /class_rooms.json
   def index
-    @class_rooms = ClassRoom.all.select(:id, :name)
+    @class_rooms = ClassRoom.all.select(:id, :name, :course_id)
     render json: @class_rooms
   end
 
@@ -23,10 +23,10 @@ class ClassRoomsController < ApplicationController
     render json: {
       id: @class_room.id,
       name: @class_room.name,
-      course: course,
-      listStudent: listStudent,
-      listTeacher: listTeacher,
-      listTimetable: listTimetable
+      course_id: @class_room.course_id,
+      listStudentIDs: listStudentIDs,
+      listTeacherIDs: listTeacherIDs,
+      listTimetableIDs: listTimetableIDs
     }
   end
 
